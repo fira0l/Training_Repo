@@ -1,0 +1,132 @@
+:root {
+  --primary-accent: #ff3e00;
+  --button-hover: #ff521a;
+  --badge-bg: rgba(255, 62, 0, 0.2);
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+.button {
+  cursor: pointer;
+  font: inherit;
+  border: none;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  padding: 0.85rem 2.5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 50px;
+  font-weight: 600;
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 2px 15px rgba(0, 0, 0, 0.1),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-accent);
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button:hover {
+  color: white;
+  border-color: transparent;
+  box-shadow: 
+    0 5px 20px rgba(255, 62, 0, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.button:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-right: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.button:hover .icon {
+  transform: translateX(2px);
+}
+
+.badge {
+  background: var(--badge-bg);
+  padding: 0.35rem 1.1rem;
+  border-radius: 50px;
+  margin-left: 1.25rem;
+  font-weight: 700;
+  border: 1px solid rgba(255, 62, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.button:hover .badge {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.bump {
+  animation: bump 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(0.95) rotate(-2deg);
+  }
+  40% {
+    transform: scale(1.1) rotate(2deg);
+  }
+  60% {
+    transform: scale(1.15) rotate(-1deg);
+  }
+  80% {
+    transform: scale(1.05) rotate(1deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+/* Optional: Add a subtle glow effect for tech appeal */
+.button::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #ff3e00, #ff7b00);
+  z-index: -2;
+  border-radius: 50px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.button:hover::after {
+  opacity: 0.4;
+}
