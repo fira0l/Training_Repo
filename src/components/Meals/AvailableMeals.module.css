@@ -1,0 +1,83 @@
+.meals {
+  max-width: 72rem;
+  width: 90%;
+  margin: 3rem auto;
+  animation: meals-appear 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  perspective: 1000px;
+}
+
+.meals ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+  gap: 2rem;
+}
+
+/* Modern card animation */
+@keyframes meals-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(4rem) rotateX(-10deg);
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+/* Individual meal item animation */
+@keyframes meal-item-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.meals li {
+  animation: meal-item-appear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: calc(var(--index) * 0.1s);
+  will-change: transform, opacity;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .meals {
+    width: 95%;
+    margin: 2rem auto;
+  }
+  
+  .meals ul {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  @keyframes meals-appear {
+    from {
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Optional: Add hover effect for grid items */
+.meals li {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.meals li:hover {
+  transform: translateY(-5px);
+  z-index: 1;
+}
