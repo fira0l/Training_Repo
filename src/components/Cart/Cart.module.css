@@ -1,5 +1,8 @@
 .cart-items {
   list-style: none;
+  padding: 1rem;
+  font-size: 1.4rem;
+  color: #ede9e9;
   margin: 0;
   padding: 0;
   max-height: 25rem;
