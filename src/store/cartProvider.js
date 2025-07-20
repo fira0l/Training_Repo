@@ -33,15 +33,33 @@ import CartContext from "./cart-context";
          }
         
         else if (action.type === 'REMOVE_ITEM') {
-            const updatedItems = state.items.filter(item => item.id !== action.id);
-            const updatedTotalAmount = state.totalAmount - state.items.find(item => item.id === action.id).price;
+            const existingCartItemIndex = state.items.findIndex(item => item.id === action.id);
+            const existingCartItem = state.items[existingCartItemIndex];
+            const updatedTotalAmount = state.totalAmount - existingCartItem.price;
+
+            let updatedItems;
+            if (existingCartItem.amount === 1) {
+                updatedItems = state.items.filter(item => item.id !== action.id);
+            } else {
+                const updatedItem = {...existingCartItem, amount: existingCartItem.amount - 1};
+                updatedItems = [...state.items];
+                updatedItems[existingCartItemIndex] = updatedItem;
+            }
+
             return {
                 items: updatedItems,
                 totalAmount: updatedTotalAmount
             }
-        } else if (action.type === 'CLEAR_CART') {
-            return defaultCartState;
         }
+        //     const updatedItems = state.items.filter(item => item.id !== action.id);
+        //     const updatedTotalAmount = state.totalAmount - state.items.find(item => item.id === action.id).price;
+        //     return {
+        //         items: updatedItems,
+        //         totalAmount: updatedTotalAmount
+        //     }
+        // } else if (action.type === 'CLEAR_CART') {
+        //     return defaultCartState;
+        // }
 
         return defaultCartState
     }
